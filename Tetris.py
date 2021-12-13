@@ -21,6 +21,9 @@ class GameRoot(object):#テトリスの根幹
     OUSPENSKI_CATHEDRAL_PATH = r'Images\OuspenskiCathedral\OuspenskiCathedral(400x300)PxcelArt.png'
     #Tetrisロゴ(タイトル画面の)
     TETRIS_TITLE_LOGO_PATH = r'Images\Title\Tetris.png'
+    #フォントのパス
+    #PixelMplus12-Regular.ttfフォント
+    PIXEL_MPLUS12_REGULAR_PATH = r'Fonts\PixelMplus12-Regular.ttf'
     def start_game(self,):
         GameRoot.is_game_launched = True
         pygame.init()
@@ -41,17 +44,24 @@ class GameRoot(object):#テトリスの根幹
     
 class DrawGame(GameRoot):#描画クラス
     def __init__(self,):
+        #フォントを読み込む
+        #フォントモジュール初期化
+        pygame.font.init()
+        #PixelMplus12-Regular.ttfフォントを追加
+        self.pixel_mplus12_regular = pygame.font.Font(GameRoot.PIXEL_MPLUS12_REGULAR_PATH,48)
         #画像を読み込み
+        #####タイトル画面#####
         #オムスク大聖堂(背景)
         self.ouspenski_cathedral = pygame.image.load(GameRoot.OUSPENSKI_CATHEDRAL_PATH)
         #Tetrisロゴ
         self.tetris_title_logo = pygame.image.load(GameRoot.TETRIS_TITLE_LOGO_PATH)
-        #
         #読み込んだ画像を適切な大きさにする
         #背景(オムスク大聖堂)を400x300から800x600にする(WINDOW_SIZEにする)
         self.ouspenski_cathedral = pygame.transform.scale(self.ouspenski_cathedral,GameRoot.WINDOW_SIZE)
         self.tetris_title_logo = pygame.transform.scale(self.tetris_title_logo,(650,150))
-        #####
+        #テキスト追加
+        self.play_text = self.pixel_mplus12_regular.render('Play',False,(255,255,255))
+        ######
     def create_window(self,):#windowを作成する。
         self.window = pygame.display.set_mode(GameRoot.WINDOW_SIZE)#作成
         pygame.display.set_caption('Tetris')#windowのタイトル
@@ -61,6 +71,8 @@ class DrawGame(GameRoot):#描画クラス
         self.window.blit(self.ouspenski_cathedral,(0,0))
         #タイトル追加(TETRIS)
         self.window.blit(self.tetris_title_logo,(75,0))
+        #
+        self.window.blit(self.play_text,(360,200))
 class GameRoutine(GameRoot):
     def __init__(self,):
         pass
@@ -77,6 +89,8 @@ class TetriminoOperation(GameRoot):#テトリミノの操作
     def __init__(self,):
         pass
     def check_if_tetrimino_crash(self,):#テトリミノが上下左右でぶつかるか調べる。
+        pass
+    def rotate_operation(self,):
         pass
     def up_operation(self,):#テトリミノを上へ移動させる
         pass
@@ -96,7 +110,7 @@ class TetriminoOperation(GameRoot):#テトリミノの操作
 if __name__ == '__main__':
     game_root = GameRoot()
     #インスタンスをあらかじめ作成
-    draw_game = DrawGame()#画像を読み込む
+    draw_game = DrawGame()#画像・フォントを読み込む
     game_routine = GameRoutine()
     #
     game_root.start_game()
