@@ -82,7 +82,17 @@ class GameRoutine(GameRoot):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     game_root.close_game()
-    def game_mode_selection(self,):
+                elif event.type == pygame.KEYDOWN:#キーが押されたとき
+                   if event.key == 'K_w':
+                       pass
+                   elif event.key == 'K_a':
+                       pass
+                   elif event.key == 'K_s':
+                       pass
+                   elif event.key == 'K_d':
+                       pass
+                    
+    def game_mode_selection(self,):#引数(押されたキー)
         pass
                     
 class TetriminoOperation(GameRoot):#テトリミノの操作
