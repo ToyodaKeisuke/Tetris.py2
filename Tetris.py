@@ -74,6 +74,7 @@ class DrawGame(GameRoot):#描画クラス
         #
         self.window.blit(self.play_text,(360,200))
 class GameRoutine(GameRoot):
+    start_game_screen__selecting_mode = 0
     def __init__(self,):
         pass
     def start_game_routine(self,):
@@ -83,17 +84,30 @@ class GameRoutine(GameRoot):
                 if event.type == pygame.QUIT:
                     game_root.close_game()
                 elif event.type == pygame.KEYDOWN:#キーが押されたとき
-                   if event.key == 'K_w':
-                       pass
-                   elif event.key == 'K_a':
-                       pass
-                   elif event.key == 'K_s':
-                       pass
-                   elif event.key == 'K_d':
-                       pass
+                    if GameRoot.is_game_start_screen == True:
+                        if event.key == pygame.K_w:
+                            self.game_mode_selection('w')
+                        elif event.key == pygame.K_a:
+                            self.game_mode_selection('a')
+                        elif event.key == pygame.K_s:
+                            self.game_mode_selection('s')
+                        elif event.key == pygame.K_d:
+                            self.game_mode_selection('d')
                     
-    def game_mode_selection(self,):#引数(押されたキー)
-        pass
+    def game_mode_selection(self,selected_key):#引数(押されたキー)
+        self.selected_key = selected_key
+        if GameRoot.is_game_start_screen == True:#今スタート画面なら
+            if self.selected_key == 'w':#スタート画面のモード選択でW=上が押されたら
+                if self.start_game_screen__selecting_mode == 0:#変数start_game_screen__selecting_modeにおいて0より上はないのでreturn
+                    return 0;
+                else:
+                    pass
+            elif self.selected_key == 's':
+                if self.start_game_screen__selecting_mode == 2:
+                    pass
+                else:
+                    pass
+            
                     
 class TetriminoOperation(GameRoot):#テトリミノの操作
     def __init__(self,):
